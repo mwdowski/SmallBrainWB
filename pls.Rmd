@@ -1,0 +1,292 @@
+---
+author: "Zuzanna Mróz, Aleksander Podsiad, Michał Wdowski"
+output: 
+  html_document:
+    df_print: paged
+    toc: true
+    toc_float: true
+    code_folding: show
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = TRUE, warning=FALSE, cache=TRUE)
+```
+
+
+## [The *pls* Package: Principal Component and Partial Least Squares Regression in R](https://www.jstatsoft.org/article/view/v018i02)
+
+Z abstraktu artykułu:
+"Pakiet pls implementuje regresję głównych składników (PCR) i częściową regresję najmniejszych kwadratów (PLSR) w R. (...) Kontrola wizualna i ocena jest ważna w chemometrii, a pakiet pls posiada szereg funkcji wykresów punktacji, obciążeń, przewidywań, współczynników i szacunków RMSEP."
+
+Poniżej znajdują się wyniki przykładowego kodu z artykułu.
+
+```{r}
+###################################################
+library("pls")
+```
+
+
+```{r}
+###################################################
+data("yarn")
+data("oliveoil")
+data("gasoline")
+
+```
+
+
+```{r}
+###################################################
+matplot(t(gasoline$NIR), type = "l", lty = 1, ylab = "log(1/R)", xaxt = "n")
+ind <- pretty(seq(from = 900, to = 1700, by = 2))
+ind <- ind[ind >= 900 & ind <= 1700]
+ind <- (ind - 898) / 2
+axis(1, ind, colnames(gasoline$NIR)[ind])
+
+```
+
+
+```{r}
+###################################################
+gasTrain <- gasoline[1:50,]
+gasTest <- gasoline[51:60,]
+
+```
+
+
+```{r}
+###################################################
+gas1 <- plsr(octane ~ NIR, ncomp = 10, data = gasTrain, validation = "LOO")
+
+```
+
+
+```{r}
+###################################################
+summary(gas1)
+
+```
+
+Tutaj znajduje się nasza pierwsza rozbieżność z atykułem. W ostatniej linijce, ostatnimi wartościami są `99.2`, `99.41` zamiast `99.19` i `99.39`. W dalszej części możemy więc spodziewać się innych zaokrągleń.
+
+
+```{r}
+###################################################
+plot(RMSEP(gas1), legendpos = "topright")
+
+```
+
+Zarówno wykres powyżej jak i 2 dalsze wykresy wydają się za to identyczne.
+
+```{r}
+###################################################
+plot(gas1, ncomp = 2, asp = 1, line = TRUE)
+
+```
+
+
+```{r}
+###################################################
+plot(gas1, plottype = "scores", comps = 1:3)
+
+```
+
+
+```{r}
+###################################################
+explvar(gas1)
+
+```
+
+Tutaj tak samo jak wcześniej, liczby różnią się zaokrągleniami. W artykule podane są 4 liczby po przecinku gdy tutaj podane jest aż 7.
+
+
+```{r}
+###################################################
+plot(gas1, "loadings", comps = 1:2, legendpos = "topleft", labels = "numbers", xlab = "nm")
+abline(h = 0)
+
+```
+
+
+```{r}
+###################################################
+predict(gas1, ncomp = 2, newdata = gasTest)
+
+```
+
+Podobnie jak wyżej: tutaj 5 miejsc po przecinku, w artykule 2.
+
+```{r}
+###################################################
+RMSEP(gas1, newdata = gasTest)
+
+```
+
+Tutaj za to mamy kolejną zmianę: w reprodukcji wartością `Intercept` jest `1.53369`, kiedy w artykule jest to `1.5114`. Pozostałe wartości są identyczne. Może to świadczyć o tym, że w nowszych wersjach R-a jest inny seed.
+
+
+```{r}
+###################################################
+dens1 <- plsr(density ~ NIR, ncomp = 5, data = yarn)
+
+```
+
+
+```{r}
+###################################################
+dim(oliveoil$sensory)
+plsr(sensory ~ chemical, data = oliveoil)
+
+```
+
+
+```{r}
+###################################################
+trainind <- which(yarn$train == TRUE)
+dens2 <- update(dens1, subset = trainind)
+
+```
+
+
+```{r}
+###################################################
+dens3 <- update(dens1, ncomp = 10)
+
+```
+
+
+```{r}
+###################################################
+olive1 <- plsr(sensory ~ chemical, scale = TRUE, data = oliveoil)
+
+```
+
+
+```{r}
+###################################################
+gas2 <- plsr(octane ~ msc(NIR), ncomp = 10, data = gasTrain)
+
+```
+
+
+```{r}
+###################################################
+predict(gas2, ncomp = 3, newdata = gasTest)
+
+```
+
+
+```{r}
+###################################################
+gas2.cv <- crossval(gas2, segments = 10)
+plot(MSEP(gas2.cv), legendpos='topright')
+summary(gas2.cv, what = "validation")
+
+```
+
+Tutaj za to wyniki różnią się o +/- kilka tysięcznych. Znowu jest to winą innego seeda, gdyż tutaj jest kroswalidacja przy uzyciu losowych segmentów.
+
+
+```{r}
+###################################################
+plot(gas1, plottype = "coef", ncomp=1:3, legendpos = "bottomleft", labels = "numbers", xlab = "nm")
+
+```
+
+
+```{r}
+###################################################
+plot(gas1, plottype = "correlation")
+
+```
+
+
+```{r}
+###################################################
+predict(gas1, ncomp = 2:3, newdata = gasTest[1:5,])
+
+```
+
+Tutaj znowu zaokrąglenia do piątej liczby po przecinku, kiedy w artykule jest do drugiej.
+
+
+```{r}
+###################################################
+predict(gas1, comps = 2, newdata = gasTest[1:5,])
+
+```
+
+Tak samo jak wyżej.
+
+
+```{r}
+###################################################
+drop(predict(gas1, ncomp = 2:3, newdata = gasTest[1:5,]))
+
+```
+
+Jak wyżej.
+
+
+```{r}
+###################################################
+predplot(gas1, ncomp = 2, newdata = gasTest, asp = 1, line = TRUE)
+
+```
+
+
+```{r}
+###################################################
+pls.options()
+
+```
+
+Tutaj za to widać że pakiet się rozwinał, bo w artykule jako output pokazane są tylko `$mvralg`, `$plsralg` i `$pcralg`. Do tego `$plsralg` ma tam wartość ` "kernelpls"`.
+
+
+```{r}
+###################################################
+pls.options(plsralg = "oscorespls")
+
+```
+
+
+```{r}
+###################################################
+pls.options("plsralg")
+rm(.pls.Options)
+pls.options("plsralg")
+
+```
+
+Tutaj tak samo `$plsralg` powinno mieć wartość `"kernelpls"`.
+
+
+```{r}
+###################################################
+X <- gasTrain$NIR
+Y <- gasTrain$octane
+ncomp <- 5
+cvPreds <- matrix(nrow = nrow(X), ncol = ncomp)
+for (i in 1:nrow(X)) {
+    fit <- simpls.fit(X[-i,], Y[-i], ncomp = ncomp, stripped = TRUE)
+    cvPreds[i,] <- (X[i,] - fit$Xmeans) %*% drop(fit$coefficients) + fit$Ymeans
+}
+
+```
+
+
+```{r}
+###################################################
+sqrt(colMeans((cvPreds - Y)^2))
+
+```
+
+Tak samo jak wcześniej tutaj zaokrąglenia do siódmej liczby a nie jak w artykule do czwartej.
+
+### Podsumowanie
+
+Artykuł jest bardzo reprodukowalny. Wyniki są praktycznie takie same, różnią się jedynie w przypadku bardziej dokładnych rozwinięć i losowo wybranych obiektów, prawdopodobnie przez innego seeda. Widać też że pakiet ten został od zamieszczenia go rozwinięty.
+
