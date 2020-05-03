@@ -10,7 +10,7 @@ knitr::opts_chunk$set(cache = TRUE)
 
 # Empirical Mode Decomposition and Hilbert Spectrum
 
-Third article (Donghoh and Hee-Seok, 2009) is about [`EMD`](https://cran.r-project.org/web/packages/EMD/index.html) package used for decomposing a signal into so-called intrinsic mode function.
+This article (Donghoh and Hee-Seok, 2009) is about [`EMD`](https://cran.r-project.org/web/packages/EMD/index.html) package used for decomposing a signal into so-called intrinsic mode function.
 
 Link to article: [`https://doi.org/10.32614/RJ-2009-002`](https://doi.org/10.32614/RJ-2009-002)
 
@@ -31,6 +31,8 @@ library(EMD)
 extrema(xt)
 ```
 
+This works perfectly fine.
+
 ## Sifting process
 
 ### Data preparation
@@ -49,6 +51,9 @@ plot(tt2, xt2, xlab="", ylab="", type="l", axes=FALSE); box()
 tryimf <- extractimf(xt2, tt2, check=TRUE)
 ```
 
+This part is not fully reproducible. We were not able to register all stages of sifting process.
+It was also different from the original one.
+
 ![](img 1.png) ![](img 2.png) ![](img 3.png)
 ![](img 4.png) ![](img 5.png) ![](img 6.png)
 
@@ -62,6 +67,8 @@ try <- emd(xt2, tt2, boundary="wave")
 ```
 
 ### Plotting IMF
+
+This was a very simple task and reproduced completely.
 
 ```{r}
 par(mfrow=c(3,1), mar=c(2,1,2,1))
@@ -78,6 +85,8 @@ plot(tt2, try$residue, xlab="", ylab="", main="residue", type="l")
 ## Intermittence
 
 ### Mode mixing
+
+This part also gives the same results as in original article.
 
 ```{r}
 tt <- seq(0, 0.1, length = 2001)[1:2000]
@@ -97,6 +106,8 @@ plot(tt, interm1$imf[,2], type="l", xlab="", ylab="", ylim=rangeimf, main="IMF 2
 ```
 
 ### Histogram of empirical period
+
+Histogram was produced perfectly.
 
 ```{r}
 par(mfrow=c(1,1), mar=c(2,4,1,1))
@@ -124,6 +135,8 @@ plot(tt,interm2$imf[,2], type="l", main="IMF 2 after treating intermittence",
 
 ## Hilbert spectrum
 
+Both spectrograms were reproduced without problems, but they are hardly visible.
+
 ### First Spectrogram
 
 ```{r}
@@ -147,16 +160,17 @@ data(lena)
 z <- lena[seq(1, 512, by=4), seq(1, 512, by=8)]
 ```
 
+This part takes the most time to produce. That is why we have decided reduce the size of the photo even more than the article authors.
+
 ```{r}
 lenadecom <- emd2d(z, max.imf = 4)
 ```
+
+This part reproduces fully.
+
 
 ### Result plot
 
 ```{r, fig.width=4, fig.height=8}
 imageEMD(z=z, emdz=lenadecom, extrema=TRUE, col=gray(0:100/100))
 ```
-
-## Summary
-
-<br> This article is fully and easily reproducible, in spite of being the oldest one (2009).
