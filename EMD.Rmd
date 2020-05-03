@@ -49,7 +49,8 @@ plot(tt2, xt2, xlab="", ylab="", type="l", axes=FALSE); box()
 tryimf <- extractimf(xt2, tt2, check=TRUE)
 ```
 
-PLOTS HERE
+![](img 1.png) ![](img 2.png) ![](img 3.png)
+![](img 4.png) ![](img 5.png) ![](img 6.png)
 
 ## Empirical mode decomposition
 
