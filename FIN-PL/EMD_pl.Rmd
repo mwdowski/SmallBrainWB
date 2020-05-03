@@ -1,0 +1,175 @@
+---
+title: "EMD"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(cache = TRUE)
+```
+
+# Empirical Mode Decomposition and Hilbert Spectrum
+
+Ten artykuł (Donghoh i Hee-Seok, 2009) dotyczy pakietu [`EMD`](https://cran.r-project.org/web/packages/EMD/index.html) służącego do dekompozycji sygnału na tzw. intrinsic mode function (funkcja trybu wewnętrznego).
+
+Link do artykułu: [`https://doi.org/10.32614/RJ-2009-002`](https://doi.org/10.32614/RJ-2009-002)
+
+## Intrinsic mode function
+
+### Przygotowanie danych
+
+```{r}
+ndata <- 3000
+tt <- seq(0, 9, length=ndata)
+xt <- sin(pi * tt)
+```
+
+### Wywołanie funkcji
+
+```{r}
+library(EMD)
+extrema(xt)
+```
+
+Nie było problemów z reprodukcją tego fragmentu.
+
+## Przesiewanie
+
+### Przygotowanie danych
+
+```{r}
+ndata <- 3000
+par(mfrow=c(1,1), mar=c(1,1,1,1))
+tt2 <- seq(0, 9, length=ndata)
+xt2 <- sin(pi * tt2) + sin(2* pi * tt2) + sin(6 * pi * tt2)  + 0.5 * tt2
+```
+
+### Rezultaty
+
+```{r, results=FALSE, eval=FALSE}
+plot(tt2, xt2, xlab="", ylab="", type="l", axes=FALSE); box()
+tryimf <- extractimf(xt2, tt2, check=TRUE)
+```
+
+Ta część nie jest w pełni odtwarzalna. Nie byliśmy w stanie zarejestrować wszystkich etapów procesu przesiewania.
+Różnił się on również od oryginału.
+
+![](img 1.png) ![](img 2.png) ![](img 3.png)
+![](img 4.png) ![](img 5.png) ![](img 6.png)
+
+## Empirical mode decomposition
+
+### Wywołanie funkcji
+
+```{r}
+par(mfrow=c(3,1), mar=c(2,1,2,1))
+try <- emd(xt2, tt2, boundary="wave")
+```
+
+### Wykres IMF
+
+To było bardzo proste zadanie, które zostało całkowicie odtworzone.
+
+```{r}
+par(mfrow=c(3,1), mar=c(2,1,2,1))
+par(mfrow=c(try$nimf+1, 1), mar=c(2,1,2,1))
+rangeimf <- range(try$imf)
+for(i in 1:try$nimf){
+  plot(tt2, try$imf[,i], type="l", xlab="", ylab="",
+       ylim=rangeimf, main= paste(i, "-th IMF", sep="")); 
+  abline(h=0)
+}
+plot(tt2, try$residue, xlab="", ylab="", main="residue", type="l")
+```
+
+## Okresowość
+
+### Mode mixing
+
+Ta część również daje te same wyniki co w oryginalnym artykule.
+
+```{r}
+tt <- seq(0, 0.1, length = 2001)[1:2000]
+f1 <- 1776; f2 <- 1000
+xt <- sin(2*pi*f1*tt) * (tt <= 0.033 | tt >= 0.067) + sin(2*pi*f2*tt)
+```
+
+### EMD
+
+```{r}
+interm1 <- emd(xt, tt, boundary="wave", max.imf=2, plot.imf=FALSE)
+par(mfrow=c(3, 1), mar=c(3,2,2,1))
+plot(tt, xt, main="Signal", type="l")
+rangeimf <- range(interm1$imf)
+plot(tt, interm1$imf[,1], type="l", xlab="", ylab="", ylim=rangeimf, main="IMF 1")
+plot(tt, interm1$imf[,2], type="l", xlab="", ylab="", ylim=rangeimf, main="IMF 2")
+```
+
+### Histogram of empirical period
+
+Histogram został poprawnie odtworzony.
+
+```{r}
+par(mfrow=c(1,1), mar=c(2,4,1,1))
+tmpinterm <- extrema(interm1$imf[,1])
+zerocross <- as.numeric(round(apply(tmpinterm$cross, 1, mean)))
+hist(diff(tt[zerocross[seq(1, length(zerocross), by=2)]]), freq=FALSE, xlab="", main="")
+```
+
+### Treating intermittence
+
+```{r}
+interm2 <- emd(xt, tt, boundary="wave", max.imf=2, plot.imf=FALSE, interm=0.0007)
+```
+
+### Wykres każdego IMF
+
+```{r}
+par(mfrow=c(2,1), mar=c(2,2,3,1), oma=c(0,0,0,0))
+rangeimf <- range(interm2$imf)
+plot(tt,interm2$imf[,1], type="l", main="IMF 1 after treating intermittence",
+     xlab="", ylab="", ylim=rangeimf)
+plot(tt,interm2$imf[,2], type="l", main="IMF 2 after treating intermittence",
+     xlab="", ylab="", ylim=rangeimf)
+```
+
+## Spektrum Hilberta
+
+Oba spektrogramy zostały odtworzone bez problemów, ale są mało widoczne.
+
+### First Spectrogram
+
+```{r}
+test1 <- hilbertspec(interm1$imf)
+spectrogram(test1$amplitude[,1], test1$instantfreq[,1])
+```
+
+### Drugi spektrogram
+
+```{r}
+test2 <- hilbertspec(interm2$imf, tt=tt)
+spectrogram(test2$amplitude[,1], test2$instantfreq[,1])
+```
+
+## Extension to two dimensional image
+
+### Wczytywanie danych i rozkład
+
+```{r}
+data(lena)
+z <- lena[seq(1, 512, by=4), seq(1, 512, by=8)]
+```
+
+Przetworzenie tej części zajmuje najwięcej czasu. Dlatego postanowiliśmy zmniejszyć rozmiar zdjęcia jeszcze bardziej niż autorzy artykułu.
+
+```{r}
+lenadecom <- emd2d(z, max.imf = 4)
+```
+
+Ta część jest w pełni odtwarzalna.
+
+### Result plot
+
+```{r, fig.width=4, fig.height=8}
+imageEMD(z=z, emdz=lenadecom, extrema=TRUE, col=gray(0:100/100))
+```
