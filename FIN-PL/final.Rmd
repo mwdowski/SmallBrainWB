@@ -933,3 +933,10 @@ W tym miejscu wprowadzony został pakiet `coda`, w celu sprawdzenia osiągów `A
 
 ## Podsumowanie
 Podsumowując, `AdMit` jest przykładem *wciąż aktualizowanego starego pakietu*, którego działanie różni się trochę od wersji z 2009 roku, ale mówiąc ogólnie - wciąż działa tak, jak było to zamierzone.
+
+# Wnioski
+* Nastąpiła zmiana seeda, co przeszkadza w dokładnej reprodukcji;
+* Zdarza się, że zbiory danych są już niedostępne;
+* Mogły nastąpić zmiany nazw.
+
+Jendak ogólnie mówiąc, jest to możliwe do zreprodukowania przy niewielkim nakładzie pracy i zrozumieniu działania kodu.
