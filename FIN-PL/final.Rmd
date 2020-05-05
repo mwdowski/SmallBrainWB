@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE, error = TRUE, warning=FALSE, cache = TRUE)
 
 # Introduction
 
-Sprawozdanie to skoncentruje się na odtwarzalności trzech różnych, lecz nieco powiązanych ze sobą pakietów przeznaczonych dla ekologów: *ade4*, *untb* i *bio.infer*. Wszystkie trzy zostały znalezione w [Journal of Statistical Software](https://www.jstatsoft.org/), [Volume 22 opublikowanym w 2007](https://www.jstatsoft.org/issue/view/v022).
+Sprawozdanie to skoncentruje się na odtwarzalności sześciu różnych artykułów, z czego pierwsze trzy są nieco powiązane ze sobą.
 
 O ile nie określono inaczej (lub nie pojawił się po nich komunikat o błędzie), przedstawione wyniki należy traktować jako identyczne z tymi, które podano w artykule. Należy też zauważyć, że w jakiś sposób wszystkie badane w tym raporcie pakiety okazały się być nadal utrzymane i dostępne dla obecnej (3.6.3) wersji R.
 
@@ -415,14 +415,14 @@ view.te(coef,plotform = "windows")
 
 # [The *pls* Package: Principal Component and Partial Least Squares Regression in R](https://www.jstatsoft.org/article/view/v018i02)
 
-### Opis
+## Opis
 
 Z abstraktu artykułu:
 "Pakiet pls implementuje regresję głównych składników (PCR) i częściową regresję najmniejszych kwadratów (PLSR) w R. (...) Kontrola wizualna i ocena jest ważna w chemometrii, a pakiet pls posiada szereg funkcji wykresów punktacji, obciążeń, przewidywań, współczynników i szacunków RMSEP."
 
 Poniżej znajdują się wyniki przykładowego kodu z artykułu.
 
-### Reprodukcja
+## Reprodukcja
 
 ```{r}
 ###################################################
@@ -701,9 +701,9 @@ Ten artykuł (Donghoh i Hee-Seok, 2009) dotyczy pakietu [`EMD`](https://cran.r-p
 
 Link do artykułu: [`https://doi.org/10.32614/RJ-2009-002`](https://doi.org/10.32614/RJ-2009-002)
 
-### Intrinsic mode function
+## Intrinsic mode function
 
-##### Przygotowanie danych
+### Przygotowanie danych
 
 ```{r}
 ndata <- 3000
@@ -711,7 +711,7 @@ tt <- seq(0, 9, length=ndata)
 xt <- sin(pi * tt)
 ```
 
-##### Wywołanie funkcji
+### Wywołanie funkcji
 
 ```{r}
 library(EMD)
@@ -720,9 +720,9 @@ extrema(xt)
 
 Nie było problemów z reprodukcją tego fragmentu.
 
-##### Przesiewanie
+### Przesiewanie
 
-##### Przygotowanie danych
+### Przygotowanie danych
 
 ```{r}
 ndata <- 3000
@@ -731,7 +731,7 @@ tt2 <- seq(0, 9, length=ndata)
 xt2 <- sin(pi * tt2) + sin(2* pi * tt2) + sin(6 * pi * tt2)  + 0.5 * tt2
 ```
 
-### Rezultaty
+## Rezultaty
 
 ```{r, results=FALSE, eval=FALSE}
 plot(tt2, xt2, xlab="", ylab="", type="l", axes=FALSE); box()
@@ -744,16 +744,16 @@ Różnił się on również od oryginału.
 ![](img 1.png) ![](img 2.png) ![](img 3.png)
 ![](img 4.png) ![](img 5.png) ![](img 6.png)
 
-### Empirical mode decomposition
+## Empirical mode decomposition
 
-##### Wywołanie funkcji
+### Wywołanie funkcji
 
 ```{r}
 par(mfrow=c(3,1), mar=c(2,1,2,1))
 try <- emd(xt2, tt2, boundary="wave")
 ```
 
-##### Wykres IMF
+### Wykres IMF
 
 To było bardzo proste zadanie, które zostało całkowicie odtworzone.
 
@@ -769,9 +769,9 @@ for(i in 1:try$nimf){
 plot(tt2, try$residue, xlab="", ylab="", main="residue", type="l")
 ```
 
-### Okresowość
+## Okresowość
 
-##### Mode mixing
+### Mode mixing
 
 Ta część również daje te same wyniki co w oryginalnym artykule.
 
@@ -781,7 +781,7 @@ f1 <- 1776; f2 <- 1000
 xt <- sin(2*pi*f1*tt) * (tt <= 0.033 | tt >= 0.067) + sin(2*pi*f2*tt)
 ```
 
-### EMD
+## EMD
 
 ```{r}
 interm1 <- emd(xt, tt, boundary="wave", max.imf=2, plot.imf=FALSE)
@@ -792,7 +792,7 @@ plot(tt, interm1$imf[,1], type="l", xlab="", ylab="", ylim=rangeimf, main="IMF 1
 plot(tt, interm1$imf[,2], type="l", xlab="", ylab="", ylim=rangeimf, main="IMF 2")
 ```
 
-### Histogram of empirical period
+## Histogram of empirical period
 
 Histogram został poprawnie odtworzony.
 
@@ -803,13 +803,13 @@ zerocross <- as.numeric(round(apply(tmpinterm$cross, 1, mean)))
 hist(diff(tt[zerocross[seq(1, length(zerocross), by=2)]]), freq=FALSE, xlab="", main="")
 ```
 
-### Treating intermittence
+## Treating intermittence
 
 ```{r}
 interm2 <- emd(xt, tt, boundary="wave", max.imf=2, plot.imf=FALSE, interm=0.0007)
 ```
 
-### Wykres każdego IMF
+## Wykres każdego IMF
 
 ```{r}
 par(mfrow=c(2,1), mar=c(2,2,3,1), oma=c(0,0,0,0))
@@ -820,27 +820,27 @@ plot(tt,interm2$imf[,2], type="l", main="IMF 2 after treating intermittence",
      xlab="", ylab="", ylim=rangeimf)
 ```
 
-### Spektrum Hilberta
+## Spektrum Hilberta
 
 Oba spektrogramy zostały odtworzone bez problemów, ale są mało widoczne.
 
-### First Spectrogram
+## First Spectrogram
 
 ```{r}
 test1 <- hilbertspec(interm1$imf)
 spectrogram(test1$amplitude[,1], test1$instantfreq[,1])
 ```
 
-### Drugi spektrogram
+## Drugi spektrogram
 
 ```{r}
 test2 <- hilbertspec(interm2$imf, tt=tt)
 spectrogram(test2$amplitude[,1], test2$instantfreq[,1])
 ```
 
-### Extension to two dimensional image
+## Extension to two dimensional image
 
-### Wczytywanie danych i rozkład
+## Wczytywanie danych i rozkład
 
 ```{r}
 data(lena)
@@ -855,19 +855,19 @@ lenadecom <- emd2d(z, max.imf = 4)
 
 Ta część jest w pełni odtwarzalna.
 
-### Result plot
+## Result plot
 
 ```{r, fig.width=4, fig.height=8}
 imageEMD(z=z, emdz=lenadecom, extrema=TRUE, col=gray(0:100/100))
 ```
 
 
-# AdMit
-### Opis
+# AdMit: Adaptive Mixtures of Student-t Distributions
+## Opis
 `AdMit` jest pakietem opisanym w wydaniu [The R Journal](https://journal.r-project.org/archive/2009/RJ-2009-003/index.html) pochodzącym z czerwca 2009 roku. Najnowsza wersja na [CRAN](https://cran.r-project.org/web/packages/AdMit/index.html) została wypuszczona 20 kwietnia 2020, zatem jak najbardziej podchodzi pod kategorię *wciąż aktualizowanych starych pakietów*.\
 Autorzy artykułu nie dołączyli dodatkowych źródeł kodu ani skryptów, jednak kod generujący wyniki jest podany w paragrafach w tekście, tak jak zostałby wpisany do konsoli `R`. Spowodowało to dodatkowe niepotrzebne kopiowanie i formatowanie. 
 
-### Reprodukcja
+## Reprodukcja
 
 ```{r}
 # install.packages("AdMit")
@@ -931,5 +931,5 @@ effectiveSize(draws) / niter(draws)
 ```
 W tym miejscu wprowadzony został pakiet `coda`, w celu sprawdzenia osiągów `AdMit`. Szczęśliwie również i on zainstalował się i działał bez komplikacji, a wyniki prawie wyglądają jak te oryginalne.
 
-### Podsumowanie
+## Podsumowanie
 Podsumowując, `AdMit` jest przykładem *wciąż aktualizowanego starego pakietu*, którego działanie różni się trochę od wersji z 2009 roku, ale mówiąc ogólnie - wciąż działa tak, jak było to zamierzone.
