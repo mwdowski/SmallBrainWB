@@ -10,6 +10,7 @@ summary(nn)
 #nie da się zrobić tak żeby pokazywało tak samo
 
 nn$result.matrix
+
 # mniej więcej to samo, pewno znowu seed
 # a no i pokazywanie, zaokrąglanie, taki szajs jak zwykle
 
