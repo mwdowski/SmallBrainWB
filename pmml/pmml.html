@@ -368,7 +368,8 @@ summary {
 </div>
 
 
-<p>#pmml</p>
+<div id="pmml" class="section level1">
+<h1>pmml</h1>
 <p><code>pmml</code> is a package coming from <a href="https://journal.r-project.org/archive/2009/RJ-2009-010/">June 2009 R Journal issue</a>. It introduces an XML-based syntax for predictive models. Last update comes from 22nd April 2020.</p>
 <pre class="r"><code>library(pmml)</code></pre>
 <pre><code>## Loading required package: XML</code></pre>
@@ -403,91 +404,7 @@ my.rpart</code></pre>
 <p>I assume that it is <strong>FULLY REP</strong>, altough the full output can’t be seen in the original article.</p>
 <pre class="r"><code>library(kernlab)
 audit &lt;- read.csv(file(&quot;http://rattle.togaware.com/audit.csv&quot;))</code></pre>
-<p>I assume that it is <strong>FULLY REP</strong>, altough the full output can’t be seen in the original article.</p>
-<pre class="r"><code>pmml(my.rpart)</code></pre>
-<pre><code>## &lt;PMML version=&quot;4.4&quot; xmlns=&quot;http://www.dmg.org/PMML-4_4&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.dmg.org/PMML-4_4 http://www.dmg.org/pmml/v4-4/pmml-4-4.xsd&quot;&gt;
-##  &lt;Header copyright=&quot;Copyright (c) 2020 michal&quot; description=&quot;RPart Decision Tree Model&quot;&gt;
-##   &lt;Extension name=&quot;user&quot; value=&quot;michal&quot; extender=&quot;SoftwareAG PMML Generator&quot;/&gt;
-##   &lt;Application name=&quot;SoftwareAG PMML Generator&quot; version=&quot;2.3.1&quot;/&gt;
-##   &lt;Timestamp&gt;2020-05-18 19:04:42&lt;/Timestamp&gt;
-##  &lt;/Header&gt;
-##  &lt;DataDictionary numberOfFields=&quot;5&quot;&gt;
-##   &lt;DataField name=&quot;Species&quot; optype=&quot;categorical&quot; dataType=&quot;string&quot;&gt;
-##    &lt;Value value=&quot;setosa&quot;/&gt;
-##    &lt;Value value=&quot;versicolor&quot;/&gt;
-##    &lt;Value value=&quot;virginica&quot;/&gt;
-##   &lt;/DataField&gt;
-##   &lt;DataField name=&quot;Sepal.Length&quot; optype=&quot;continuous&quot; dataType=&quot;double&quot;/&gt;
-##   &lt;DataField name=&quot;Sepal.Width&quot; optype=&quot;continuous&quot; dataType=&quot;double&quot;/&gt;
-##   &lt;DataField name=&quot;Petal.Length&quot; optype=&quot;continuous&quot; dataType=&quot;double&quot;/&gt;
-##   &lt;DataField name=&quot;Petal.Width&quot; optype=&quot;continuous&quot; dataType=&quot;double&quot;/&gt;
-##  &lt;/DataDictionary&gt;
-##  &lt;TreeModel modelName=&quot;RPart_Model&quot; functionName=&quot;classification&quot; algorithmName=&quot;rpart&quot; splitCharacteristic=&quot;binarySplit&quot; missingValueStrategy=&quot;defaultChild&quot; noTrueChildStrategy=&quot;returnLastPrediction&quot;&gt;
-##   &lt;MiningSchema&gt;
-##    &lt;MiningField name=&quot;Species&quot; usageType=&quot;predicted&quot; invalidValueTreatment=&quot;returnInvalid&quot;/&gt;
-##    &lt;MiningField name=&quot;Sepal.Length&quot; usageType=&quot;active&quot; invalidValueTreatment=&quot;returnInvalid&quot;/&gt;
-##    &lt;MiningField name=&quot;Sepal.Width&quot; usageType=&quot;active&quot; invalidValueTreatment=&quot;returnInvalid&quot;/&gt;
-##    &lt;MiningField name=&quot;Petal.Length&quot; usageType=&quot;active&quot; invalidValueTreatment=&quot;returnInvalid&quot;/&gt;
-##    &lt;MiningField name=&quot;Petal.Width&quot; usageType=&quot;active&quot; invalidValueTreatment=&quot;returnInvalid&quot;/&gt;
-##   &lt;/MiningSchema&gt;
-##   &lt;Output&gt;
-##    &lt;OutputField name=&quot;Predicted_Species&quot; optype=&quot;categorical&quot; dataType=&quot;string&quot; feature=&quot;predictedValue&quot;/&gt;
-##    &lt;OutputField name=&quot;Probability_setosa&quot; optype=&quot;continuous&quot; dataType=&quot;double&quot; feature=&quot;probability&quot; value=&quot;setosa&quot;/&gt;
-##    &lt;OutputField name=&quot;Probability_versicolor&quot; optype=&quot;continuous&quot; dataType=&quot;double&quot; feature=&quot;probability&quot; value=&quot;versicolor&quot;/&gt;
-##    &lt;OutputField name=&quot;Probability_virginica&quot; optype=&quot;continuous&quot; dataType=&quot;double&quot; feature=&quot;probability&quot; value=&quot;virginica&quot;/&gt;
-##   &lt;/Output&gt;
-##   &lt;Node id=&quot;1&quot; score=&quot;setosa&quot; recordCount=&quot;150&quot; defaultChild=&quot;3&quot;&gt;
-##    &lt;True/&gt;
-##    &lt;ScoreDistribution value=&quot;setosa&quot; recordCount=&quot;50&quot; confidence=&quot;0.333333333333333&quot;/&gt;
-##    &lt;ScoreDistribution value=&quot;versicolor&quot; recordCount=&quot;50&quot; confidence=&quot;0.333333333333333&quot;/&gt;
-##    &lt;ScoreDistribution value=&quot;virginica&quot; recordCount=&quot;50&quot; confidence=&quot;0.333333333333333&quot;/&gt;
-##    &lt;Node id=&quot;2&quot; score=&quot;setosa&quot; recordCount=&quot;50&quot;&gt;
-##     &lt;CompoundPredicate booleanOperator=&quot;surrogate&quot;&gt;
-##      &lt;SimplePredicate field=&quot;Petal.Length&quot; operator=&quot;lessThan&quot; value=&quot;2.45&quot;/&gt;
-##      &lt;SimplePredicate field=&quot;Petal.Width&quot; operator=&quot;lessThan&quot; value=&quot;0.8&quot;/&gt;
-##      &lt;SimplePredicate field=&quot;Sepal.Length&quot; operator=&quot;lessThan&quot; value=&quot;5.45&quot;/&gt;
-##      &lt;SimplePredicate field=&quot;Sepal.Width&quot; operator=&quot;greaterOrEqual&quot; value=&quot;3.35&quot;/&gt;
-##     &lt;/CompoundPredicate&gt;
-##     &lt;ScoreDistribution value=&quot;setosa&quot; recordCount=&quot;50&quot; confidence=&quot;1&quot;/&gt;
-##     &lt;ScoreDistribution value=&quot;versicolor&quot; recordCount=&quot;0&quot; confidence=&quot;0&quot;/&gt;
-##     &lt;ScoreDistribution value=&quot;virginica&quot; recordCount=&quot;0&quot; confidence=&quot;0&quot;/&gt;
-##    &lt;/Node&gt;
-##    &lt;Node id=&quot;3&quot; score=&quot;versicolor&quot; recordCount=&quot;100&quot; defaultChild=&quot;7&quot;&gt;
-##     &lt;CompoundPredicate booleanOperator=&quot;surrogate&quot;&gt;
-##      &lt;SimplePredicate field=&quot;Petal.Length&quot; operator=&quot;greaterOrEqual&quot; value=&quot;2.45&quot;/&gt;
-##      &lt;SimplePredicate field=&quot;Petal.Width&quot; operator=&quot;greaterOrEqual&quot; value=&quot;0.8&quot;/&gt;
-##      &lt;SimplePredicate field=&quot;Sepal.Length&quot; operator=&quot;greaterOrEqual&quot; value=&quot;5.45&quot;/&gt;
-##      &lt;SimplePredicate field=&quot;Sepal.Width&quot; operator=&quot;lessThan&quot; value=&quot;3.35&quot;/&gt;
-##     &lt;/CompoundPredicate&gt;
-##     &lt;ScoreDistribution value=&quot;setosa&quot; recordCount=&quot;0&quot; confidence=&quot;0&quot;/&gt;
-##     &lt;ScoreDistribution value=&quot;versicolor&quot; recordCount=&quot;50&quot; confidence=&quot;0.5&quot;/&gt;
-##     &lt;ScoreDistribution value=&quot;virginica&quot; recordCount=&quot;50&quot; confidence=&quot;0.5&quot;/&gt;
-##     &lt;Node id=&quot;6&quot; score=&quot;versicolor&quot; recordCount=&quot;54&quot;&gt;
-##      &lt;CompoundPredicate booleanOperator=&quot;surrogate&quot;&gt;
-##       &lt;SimplePredicate field=&quot;Petal.Width&quot; operator=&quot;lessThan&quot; value=&quot;1.75&quot;/&gt;
-##       &lt;SimplePredicate field=&quot;Petal.Length&quot; operator=&quot;lessThan&quot; value=&quot;4.75&quot;/&gt;
-##       &lt;SimplePredicate field=&quot;Sepal.Length&quot; operator=&quot;lessThan&quot; value=&quot;6.15&quot;/&gt;
-##       &lt;SimplePredicate field=&quot;Sepal.Width&quot; operator=&quot;lessThan&quot; value=&quot;2.95&quot;/&gt;
-##      &lt;/CompoundPredicate&gt;
-##      &lt;ScoreDistribution value=&quot;setosa&quot; recordCount=&quot;0&quot; confidence=&quot;0&quot;/&gt;
-##      &lt;ScoreDistribution value=&quot;versicolor&quot; recordCount=&quot;49&quot; confidence=&quot;0.907407407407407&quot;/&gt;
-##      &lt;ScoreDistribution value=&quot;virginica&quot; recordCount=&quot;5&quot; confidence=&quot;0.0925925925925926&quot;/&gt;
-##     &lt;/Node&gt;
-##     &lt;Node id=&quot;7&quot; score=&quot;virginica&quot; recordCount=&quot;46&quot;&gt;
-##      &lt;CompoundPredicate booleanOperator=&quot;surrogate&quot;&gt;
-##       &lt;SimplePredicate field=&quot;Petal.Width&quot; operator=&quot;greaterOrEqual&quot; value=&quot;1.75&quot;/&gt;
-##       &lt;SimplePredicate field=&quot;Petal.Length&quot; operator=&quot;greaterOrEqual&quot; value=&quot;4.75&quot;/&gt;
-##       &lt;SimplePredicate field=&quot;Sepal.Length&quot; operator=&quot;greaterOrEqual&quot; value=&quot;6.15&quot;/&gt;
-##       &lt;SimplePredicate field=&quot;Sepal.Width&quot; operator=&quot;greaterOrEqual&quot; value=&quot;2.95&quot;/&gt;
-##      &lt;/CompoundPredicate&gt;
-##      &lt;ScoreDistribution value=&quot;setosa&quot; recordCount=&quot;0&quot; confidence=&quot;0&quot;/&gt;
-##      &lt;ScoreDistribution value=&quot;versicolor&quot; recordCount=&quot;1&quot; confidence=&quot;0.0217391304347826&quot;/&gt;
-##      &lt;ScoreDistribution value=&quot;virginica&quot; recordCount=&quot;45&quot; confidence=&quot;0.978260869565217&quot;/&gt;
-##     &lt;/Node&gt;
-##    &lt;/Node&gt;
-##   &lt;/Node&gt;
-##  &lt;/TreeModel&gt;
-## &lt;/PMML&gt;</code></pre>
+<p><strong>FULLY REP</strong></p>
 <pre class="r"><code>myksvm &lt;- ksvm(as.factor(TARGET_Adjusted) ~ ., data=audit[,c(2:10,13)], kernel = &quot;rbfdot&quot;, prob.model=TRUE)</code></pre>
 <p><strong>HAD TO CHANGE STH</strong> Column <code>TARGET_Adjusted</code> was originally called <code>Adjusted</code>.</p>
 <pre class="r"><code>pmml(myksvm, data=audit)</code></pre>
@@ -503,6 +420,7 @@ audit &lt;- read.csv(file(&quot;http://rattle.togaware.com/audit.csv&quot;))</co
 ##   &lt;DataField name=&quot;Employment&quot; optype=&quot;categorical&quot; dataType=&quot;string&quot;&gt;
 ...</code></pre>
 <p>I assume that it is <strong>FULLY REP</strong>, altough the full output can’t be seen in the original article.</p>
+</div>
 
 
 

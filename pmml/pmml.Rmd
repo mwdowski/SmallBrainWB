@@ -26,10 +26,11 @@ knit_hooks$set(output = function(x, options) {
   x <- paste(c(x, ""), collapse = "\n")
   hook_output(x, options)
 })
+
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
-#pmml
+# pmml
 
 `pmml` is a package coming from [June 2009 R Journal issue](https://journal.r-project.org/archive/2009/RJ-2009-010/). It introduces an XML-based syntax for predictive models. Last update comes from 22nd April 2020.
 
@@ -52,10 +53,9 @@ I assume that it is **FULLY REP**, altough the full output can't be seen in the 
 library(kernlab)
 audit <- read.csv(file("http://rattle.togaware.com/audit.csv"))
 ```
-I assume that it is **FULLY REP**, altough the full output can't be seen in the original article.
+**FULLY REP**
 
 ```{r}
-pmml(my.rpart)
 myksvm <- ksvm(as.factor(TARGET_Adjusted) ~ ., data=audit[,c(2:10,13)], kernel = "rbfdot", prob.model=TRUE)
 ```
 **HAD TO CHANGE STH**
