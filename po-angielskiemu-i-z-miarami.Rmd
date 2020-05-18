@@ -37,21 +37,21 @@ options(prompt="R> ", continue=" ", width = 85)
 library(ade4)
 apropos("dudi.")
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 ```{r}
 ###################################################
 ### chunk number 6: ni2
 ###################################################
 args(as.dudi)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 ```{r}
 ###################################################
 ### chunk number 7: ni3
 ###################################################
 methods(class="dudi")
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Here is the first deviation from the results shown in the paper. The methods which should have been shown are as follows: "print.dudi",  "scatter.dudi" and "t.dudi". It should be noted that these methods are still included in the package, although they've been shortened to "print", "scatter" and "t". 
 
@@ -62,7 +62,7 @@ Here is the first deviation from the results shown in the paper. The methods whi
 data(dunedata)
 sapply(dunedata$envir,class)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 ```{r}
 ###################################################
 ### chunk number 9: ex2
@@ -70,7 +70,7 @@ sapply(dunedata$envir,class)
 dunedata$envir$use <- factor(dunedata$envir$use,ordered=FALSE)
 summary(dunedata$envir)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 ```{r}
 ###################################################
 ### chunk number 10: ex3
@@ -78,7 +78,7 @@ summary(dunedata$envir)
 dd1 <- dudi.hillsmith(dunedata$envir, scannf = FALSE,nf=2)
 dd1
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 In this chunk results are nearly identical with the exception of the last row: "other elements: assign index cr center norm" instead of "other elements: assign index cr", whatever may it mean.
 ```{r}
@@ -93,7 +93,7 @@ And here we have the first error. As noted earlier, some methods' names have bee
 ```{r}
 scatter(dd1)
 ```
-<br/>HAD TO CHANGE STH & MOSTLY REP
+<br/>**HAD TO CHANGE & STILL SOMEWHAT DIFFERENT**
 
 After invoking the correct name of the method the error message goes away. However, the graph drawn isn't the same as the one in the paper. The barplots in the corner match, but  sor some reason the background graph is a vertically flipped version of the one shown in the article. 
 
@@ -123,7 +123,7 @@ summary(saunders.tot)
 ###################################################
 preston(saunders.tot,n=9)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
@@ -132,7 +132,7 @@ preston(saunders.tot,n=9)
 jj.preston <- preston(saunders.tot)
 jj.summary <- summary(saunders.tot)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
@@ -146,7 +146,7 @@ for(i in 1:n){
   unc[[i]] <- rand.neutral(J=J, theta=theta_hat)
 }
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
@@ -157,7 +157,7 @@ for(i in 1:n){
   points(unc[[i]],type="l",col="grey")
 }
 ```
-<br/>NO REP
+<br/>**NO REP**
 
 As can be surmised, the graph above differs greatly from the one in the article. It is absolutely unreadable. It is also the first divergence from the results shown in the paper.
 
@@ -167,7 +167,7 @@ As can be surmised, the graph above differs greatly from the one in the article.
 ###################################################
 optimal.theta(saunders.tot)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
@@ -181,7 +181,7 @@ support <- jj-max(jj)
 plot(theta,support,xlab=paste("Biodiversity parameter",expression(theta)),ylab="support")
 abline(h= -2)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
@@ -189,7 +189,7 @@ abline(h= -2)
 ###################################################
 load("bci1982.Rdata")
 ```
-<br/>NO REP
+<br/>**NO REP**
 
 The [link](http://ctfs.si.edu/datasets/bci) given in the paper to the dataset above leads to nothing. Brief google searches did not help with locating it. It might or might not be lost forever. Because of that most of the chunks below result in errors.
 ```{r}
@@ -198,7 +198,7 @@ The [link](http://ctfs.si.edu/datasets/bci) given in the paper to the dataset ab
 ###################################################
 op.bci.1982 <- optimal.params(bci1982, l)
 ```
-<br/>NO REP
+<br/>**NO REP**
 
 ```{r}
 ###################################################
@@ -206,7 +206,7 @@ op.bci.1982 <- optimal.params(bci1982, l)
 ###################################################
 op.bci.1982
 ```
-<br/>NO REP
+<br/>**NO REP**
 
 ```{r}
 ###################################################
@@ -223,7 +223,7 @@ points(50,0.01,pch=4,lwd=3,cex=2)
 
 legend( "bottomleft", c("100","1000","10000"),col=c("black","red","blue"), pch=1:3, title="Local community size")
 ```
-<br/>NO REP
+<br/>**NO REP**
 
 ```{r}
 ###################################################
@@ -234,7 +234,7 @@ x <- expected.abundance(J=n, theta=3)
 e.low  <- expected.abundance(J=n,theta=4)
 e.high <- expected.abundance(J=n,theta=2)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
@@ -243,7 +243,7 @@ e.high <- expected.abundance(J=n,theta=2)
 plot(x)
 segments(x0=1:n,x1=1:n,y0=e.low,y1=e.high)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 The graph above does not use the missing dataset above and thus remains true to the one shown in the article.
 ```{r}
@@ -252,7 +252,7 @@ The graph above does not use the missing dataset above and thus remains true to 
 ###################################################
 rank3 <- table(replicate(1000,rand.neutral(J=20,theta=2)[3]))
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
@@ -260,7 +260,7 @@ rank3 <- table(replicate(1000,rand.neutral(J=20,theta=2)[3]))
 ###################################################
 plot(rank3,xlab="abundance of third ranked species",ylab="frequency")
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 Same as the last one.
 ```{r}
@@ -272,7 +272,7 @@ set.seed(0);
 a <- species.table(untb(start=rep(1,60),prob=0.002, gens=40000,keep=TRUE))
 }
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
@@ -280,7 +280,7 @@ a <- species.table(untb(start=rep(1,60),prob=0.002, gens=40000,keep=TRUE))
 ###################################################
 matplot(a,type="l",lty=1,xlab="time (generation)",ylab="abundance")
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 In contrast to the two graphs above, while this one still can be generated, it is vastly different from the result shown in the paper. 
 ```{r bitch, eval = FALSE}
@@ -293,14 +293,14 @@ jj <- isolate(rn,size=10000)
 a <- untb(start=jj, prob=0.01, D=10000, gens=1000, meta=rn)
 a.logkda <- logkda(a)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 op <- optimal.params(a,log.kda=a.logkda)
 v.opt <- volkov(no.of.ind(a), op, bins=TRUE)
 v.true <- volkov(no.of.ind(a), c(100,0.01), bins=TRUE)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r, include = FALSE}
 load(file = "aaa.RData")
@@ -323,7 +323,7 @@ points(jj, v.true[1:12], type="b",col="blue",pch=4)
 par(xpd=2)
 legend("topright", c("best estimate","true"), pch=c(1,4), col=c("red","blue"), lty=c(1,1))
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 The graph is almost identical, but because of problems with 'optimal.params' it lacks the 'best estimate' line.
 ```{r}
@@ -383,7 +383,7 @@ f(10,0.1)
 f(50,0.1)
 f(100,0.1)
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 This graph, while seeming similar at first glance, is different. That might be because of the different seed - the method `sample` is used in generating this plot. 
 
@@ -400,7 +400,7 @@ data(bcnt.emapw)
 bcnt.tax <- get.taxonomic(bcnt.emapw, itis.ttable,
                           outputFile = "sum.tax.table.txt")
 ```
-<br/>HAD TO CHANGE STH
+<br/>**HAD TO CHANGE STH**
 
 While the first chunk resulting in an error message might seem discouraging, it is relatively easy to resolve. As stated before, all of the packages are being maintained and have had numerous updates since 2007. The method 'get.taxonomic' has been simplified and currently it does not require the two last arguments.
 ```{r, eval=FALSE}
@@ -413,7 +413,7 @@ incvec <- df1[, "FAMILY"] == "EPHEMERIDAE"
 incvec[is.na(incvec)] <- F
 print(df1[incvec,c("ORDER", "FAMILY", "GENUS", "SPECIES", "TAXANAME")])
 ```
-<br/>HAD TO CHANGE STH
+<br/>**HAD TO CHANGE STH**
 
 Another error: this one due to the column "TAXANAME" being changed to "taxaname.orig".
 ```{r}
@@ -427,14 +427,14 @@ coef <- taxon.env(form = ~STRMTEMP + STRMTEMP^2, bcnt = bcnt.tax,
                   bcnt.abndid = "ABUND", env.siteid = "ID.NEW",
                   tlevs = "SPECIES", dumpdata = TRUE)
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 The results in the article are "64", not "59".
 ```{r}
 # Echo names of coefficient data
 names(coef)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r, eval = FALSE}
 # View taxon-environment relationships
@@ -442,7 +442,7 @@ view.te(coef,plotform = "windows")
 ```
 ![](00.png)
 
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 # Plot histogram of area under ROC values
@@ -453,7 +453,7 @@ hist(coef[["roc"]], col = "lightgray", breaks =breaks,
 mtext("Area under ROC", side = 1, line = 2.3)
 mtext("Number of taxa", side = 2, line = 2.3)
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Slightly different distribution than in the graph from the article.
 ```{r}
@@ -463,7 +463,7 @@ coef <- taxon.env(form = ~STRMTEMP + STRMTEMP^2, bcnt = bcnt.tax,
                   bcnt.abndid = "ABUND", env.siteid = "ID.NEW",
                   tlevs = "all", dumpdata = FALSE)
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Slightly different numbers than the ones in the article.
 ```{r}
@@ -472,14 +472,14 @@ data(bcnt.OR)
 bcnt.tax.OR <- get.taxonomic(bcnt.OR, itis.ttable)
 bcnt.otu.OR <- get.otu(bcnt.tax.OR, coef)
 ```
-<br/>HAD TO CHANGE STH
+<br/>**HAD TO CHANGE STH**
 
 Another 'get.taxonomic' method requiring an update of the arguments.
 ```{r}
 bcnt.tax.OR <- get.taxonomic(bcnt.OR)
 bcnt.otu.OR <- get.otu(bcnt.tax.OR, coef)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 # Compute inferences for temperature for one site in OR
@@ -488,14 +488,14 @@ ss <- makess(bcnt.otu.OR)
 inferences <- mlsolve(ss, coef, site.sel = "99046CSR", bruteforce = T)
 print(inferences)
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Slightly different numbers in STRMTEMP, 15.86332 instead of 15.6759.
 ```{r}
 # Compute inferences at all sites in OR
 inferences <- mlsolve(ss, coef, site.sel = "all", bruteforce = F)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 # Compare inferences in OR to measured temperature
@@ -515,14 +515,14 @@ sqdiff <- (df1$temp - df1$STRMTEMP)^2
 n <- sum(! is.na(sqdiff))
 rmserr <- sqrt(sum(sqdiff, na.rm = T)/n)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 # Examine pre-computed taxon-environment relationships
 data(coef.west.wt)
 view.te(coef.west.wt, plotform = "windows")
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r, cache = TRUE}
 # Compute inferences at a single site in OR using \
@@ -532,7 +532,7 @@ ss <- makess(bcnt.otu.OR)
 inference <- mlsolve(ss, coef.west.wt, site.sel = "99046CSR", bruteforce = T)
 print(inference)
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Another set of slightly different numbers.
 
@@ -545,7 +545,7 @@ To conclude - most of the graphs are identical, with somewhat different (but sti
 ###################################################
 library("pls")
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 
 ```{r}
@@ -555,7 +555,7 @@ data("oliveoil")
 data("gasoline")
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 
 ```{r}
@@ -567,7 +567,7 @@ ind <- (ind - 898) / 2
 axis(1, ind, colnames(gasoline$NIR)[ind])
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
@@ -575,21 +575,21 @@ gasTrain <- gasoline[1:50,]
 gasTest <- gasoline[51:60,]
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
 gas1 <- plsr(octane ~ NIR, ncomp = 10, data = gasTrain, validation = "LOO")
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
 summary(gas1)
 
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Here is our first discrepancy with the article. In the last line, the last values are `99.2`, `99.41` instead of `99.19` and `99.39`.
 
@@ -599,7 +599,7 @@ Here is our first discrepancy with the article. In the last line, the last value
 plot(RMSEP(gas1), legendpos = "topright")
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 Both the graph above and 2 further graphs seem to be identical.
 
@@ -608,21 +608,21 @@ Both the graph above and 2 further graphs seem to be identical.
 plot(gas1, ncomp = 2, asp = 1, line = TRUE)
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
 plot(gas1, plottype = "scores", comps = 1:3)
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
 explvar(gas1)
 
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Here, as before, the numbers vary in rounding. In the article there are 4 numbers after the decimal point when 7 is given here.
 
@@ -633,14 +633,14 @@ plot(gas1, "loadings", comps = 1:2, legendpos = "topleft", labels = "numbers", x
 abline(h = 0)
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
 predict(gas1, ncomp = 2, newdata = gasTest)
 
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 As above: here 5 decimal places, in article 2.
 
@@ -649,7 +649,7 @@ As above: here 5 decimal places, in article 2.
 RMSEP(gas1, newdata = gasTest)
 
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Here we have another change: in reproduction, the value of the `Intercept` is `1.53369`, when in the article it is `1.5114`. The other values are identical. This may indicate that there is another seed in newer versions of R.
 
@@ -659,7 +659,7 @@ Here we have another change: in reproduction, the value of the `Intercept` is `1
 dens1 <- plsr(density ~ NIR, ncomp = 5, data = yarn)
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
@@ -667,7 +667,7 @@ dim(oliveoil$sensory)
 plsr(sensory ~ chemical, data = oliveoil)
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
@@ -675,35 +675,35 @@ trainind <- which(yarn$train == TRUE)
 dens2 <- update(dens1, subset = trainind)
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
 dens3 <- update(dens1, ncomp = 10)
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
 olive1 <- plsr(sensory ~ chemical, scale = TRUE, data = oliveoil)
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
 gas2 <- plsr(octane ~ msc(NIR), ncomp = 10, data = gasTrain)
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
 predict(gas2, ncomp = 3, newdata = gasTest)
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
@@ -712,7 +712,7 @@ plot(MSEP(gas2.cv), legendpos='topright')
 summary(gas2.cv, what = "validation")
 
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Here the results differ by +/- a few thousandths. Again, this is the fault of another seed, because here is the croswalidation using random segments.
 
@@ -722,21 +722,21 @@ Here the results differ by +/- a few thousandths. Again, this is the fault of an
 plot(gas1, plottype = "coef", ncomp=1:3, legendpos = "bottomleft", labels = "numbers", xlab = "nm")
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
 plot(gas1, plottype = "correlation")
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
 predict(gas1, ncomp = 2:3, newdata = gasTest[1:5,])
 
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Here again, rounding up to the fifth decimal number when the article is to the second.
 
@@ -746,7 +746,7 @@ Here again, rounding up to the fifth decimal number when the article is to the s
 predict(gas1, comps = 2, newdata = gasTest[1:5,])
 
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Same as above.
 
@@ -756,7 +756,7 @@ Same as above.
 drop(predict(gas1, ncomp = 2:3, newdata = gasTest[1:5,]))
 
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Same as above.
 
@@ -766,14 +766,14 @@ Same as above.
 predplot(gas1, ncomp = 2, newdata = gasTest, asp = 1, line = TRUE)
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
 pls.options()
 
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Here you can see that the package has developed, because in the article only `$mvralg`, `$plsralg` and `$pcralg` are shown as output. In addition, `$plsralg` has the value of `kernelpls`.
 
@@ -783,7 +783,7 @@ Here you can see that the package has developed, because in the article only `$m
 pls.options(plsralg = "oscorespls")
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
@@ -792,7 +792,7 @@ rm(.pls.Options)
 pls.options("plsralg")
 
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Here `$plsralg` should have the value of `kernelpls`.
 
@@ -809,14 +809,14 @@ for (i in 1:nrow(X)) {
 }
 
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 ###################################################
 sqrt(colMeans((cvPreds - Y)^2))
 
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Same as before here rounded up to the seventh number and not as in the article to the fourth.
 
@@ -835,13 +835,13 @@ ndata <- 3000
 tt <- seq(0, 9, length=ndata)
 xt <- sin(pi * tt)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 library(EMD)
 extrema(xt)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 There were no problems with reproducing this fragment.
 
@@ -851,14 +851,14 @@ par(mfrow=c(1,1), mar=c(1,1,1,1))
 tt2 <- seq(0, 9, length=ndata)
 xt2 <- sin(pi * tt2) + sin(2* pi * tt2) + sin(6 * pi * tt2)  + 0.5 * tt2
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 
 ```{r, results=FALSE, eval=FALSE}
 plot(tt2, xt2, xlab="", ylab="", type="l", axes=FALSE); box()
 tryimf <- extractimf(xt2, tt2, check=TRUE)
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 This part is not fully reproducible. We were unable to record all stages of the process.
 It was also different from the original.
@@ -870,7 +870,7 @@ It was also different from the original.
 par(mfrow=c(3,1), mar=c(2,1,2,1))
 try <- emd(xt2, tt2, boundary="wave")
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 It was a very simple task, which was completely reproduced.
 
@@ -885,7 +885,7 @@ for(i in 1:try$nimf){
 }
 plot(tt2, try$residue, xlab="", ylab="", main="residue", type="l")
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 This part also gives the same results as in the original article.
 
@@ -894,7 +894,7 @@ tt <- seq(0, 0.1, length = 2001)[1:2000]
 f1 <- 1776; f2 <- 1000
 xt <- sin(2*pi*f1*tt) * (tt <= 0.033 | tt >= 0.067) + sin(2*pi*f2*tt)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 interm1 <- emd(xt, tt, boundary="wave", max.imf=2, plot.imf=FALSE)
@@ -904,7 +904,7 @@ rangeimf <- range(interm1$imf)
 plot(tt, interm1$imf[,1], type="l", xlab="", ylab="", ylim=rangeimf, main="IMF 1")
 plot(tt, interm1$imf[,2], type="l", xlab="", ylab="", ylim=rangeimf, main="IMF 2")
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 The histogram has been correctly reproduced.
 
@@ -914,12 +914,12 @@ tmpinterm <- extrema(interm1$imf[,1])
 zerocross <- as.numeric(round(apply(tmpinterm$cross, 1, mean)))
 hist(diff(tt[zerocross[seq(1, length(zerocross), by=2)]]), freq=FALSE, xlab="", main="")
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 interm2 <- emd(xt, tt, boundary="wave", max.imf=2, plot.imf=FALSE, interm=0.0007)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 par(mfrow=c(2,1), mar=c(2,2,3,1), oma=c(0,0,0,0))
@@ -929,7 +929,7 @@ plot(tt,interm2$imf[,1], type="l", main="IMF 1 after treating intermittence",
 plot(tt,interm2$imf[,2], type="l", main="IMF 2 after treating intermittence",
      xlab="", ylab="", ylim=rangeimf)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 Both spectrograms have been reproduced without any problems, but are not very visible.
 
@@ -938,33 +938,33 @@ Both spectrograms have been reproduced without any problems, but are not very vi
 test1 <- hilbertspec(interm1$imf)
 spectrogram(test1$amplitude[,1], test1$instantfreq[,1])
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 test2 <- hilbertspec(interm2$imf, tt=tt)
 spectrogram(test2$amplitude[,1], test2$instantfreq[,1])
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 ```{r}
 data(lena)
 z <- lena[seq(1, 512, by=4), seq(1, 512, by=8)]
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 This part takes the most time to process. That is why we decided to reduce the size of the photo even more than the authors of the article.
 
 ```{r}
 lenadecom <- emd2d(z, max.imf = 4)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 This part is fully reproducible.
 
 ```{r, fig.width=4, fig.height=8, cache=TRUE}
 imageEMD(z=z, emdz=lenadecom, extrema=TRUE, col=gray(0:100/100))
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 # AdMit: Adaptive Mixtures of Student-t Distributions
 
@@ -976,7 +976,7 @@ The authors of this article did not include additional code sources or scripts, 
 # install.packages("AdMit")
 library(AdMit)
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 In version `R 3.6.3`, the installation was quick and uncomplicated.
 
@@ -994,7 +994,7 @@ GelmanMeng <- function(x, log = TRUE) {
     as.vector(r)
 }
 ```
-<br/>FULLY REP
+<br/>**FULLY REP**
 
 The above code creates a kernel, which is later visualized on graphs, but the code generating it has not been attached
 
@@ -1002,14 +1002,14 @@ The above code creates a kernel, which is later visualized on graphs, but the co
 (outAdMit <- AdMit(KERNEL = GelmanMeng, mu0 = c(0, 0.1)))
 (outAdMitIS <- AdMitIS(N = 1e5, KERNEL = GelmanMeng, mit = outAdMit$mit))
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 The results are usually a little different from the original ones, most likely due to a different random number generator. Furthermore, it can be seen that a different method of rounding numbers is used.
 
 ```{r, results='hide'}
 (outAdMitMH <- AdMitMH(N = 101000, KERNEL = GelmanMeng, mit = outAdMit$mit))
 ```
-<br/>HAD TO CHANGE STH
+<br/>**HAD TO CHANGE STH**
 
 This code in the `markdown` generates 50000 lines of results and proudly declares that it omitted another 50000, but in the `R` itself it generates in an accessible way.
 
@@ -1020,7 +1020,7 @@ For the purpose of this article you had to rewrite this line of code.
 head(outAdMitMH$draws, 7)
 outAdMitMH$accept
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Here again the results are almost equal to the original.
 
@@ -1033,11 +1033,407 @@ summary(draws)$stat
 
 effectiveSize(draws) / niter(draws)
 ```
-<br/>MOSTLY REP
+<br/>**MOSTLY REP**
 
 Here `coda` package was introduced to check the performance of `AdMit`. Luckily, it also installed itself and worked without complications, and the results almost look like the original ones.
 
 In conclusion, the `AdMit` is an example of an *still updated old package*, the operation of which is a little different from the 2009 version, but generally speaking, still works as intended.
+
+# [asympTest](https://journal.r-project.org/archive/2009/RJ-2009-015/index.html): A Simple R Package for Classical Parametric Statistical Tests and Confidence Intervals in Large Samples 
+
+```{r, include=FALSE}
+library(asympTest)
+```
+```{r}
+data(DIGdata)
+attach(DIGdata)
+x <- na.omit(DIABP[TRTMT==0])
+y <- na.omit(DIABP[TRTMT==1])
+c(length(x),length(y))
+```
+**FULLY REP**
+
+```{r}
+var.test(DIABP ~ TRTMT, data = DIGdata, na.action = na.omit)
+```
+**MOSTLY REP** - x/y changed to DIABP/TRTMT
+
+```{r}
+asymp.test(DIABP ~ TRTMT, data = DIGdata, na.action = na.omit, parameter = "dVar")
+```
+**FULLY REP**
+
+```{r}
+n <- 1000
+x <- runif(n, max = sqrt(12))
+asymp.test(x, par = "var", alt = "gr", ref = 0.97)
+```
+**MOSTLY REP**, mainly because of the differing seed.
+
+```{r}
+chisq.stat <- (n-1)*var(x)/0.97
+pchisq(chisq.stat, n-1, lower.tail = F)
+
+```
+**MOSTLY REP** same as above
+
+
+# PMML: An Open Standard for Sharing Models
+
+`pmml` is a package coming from [June 2009 R Journal issue](https://journal.r-project.org/archive/2009/RJ-2009-010/). It introduces an XML-based syntax for predictive models. Last update comes from 22nd April 2020.
+
+```{r, include=FALSE}
+library(knitr)
+library(XML)
+library(pmml)
+library(rpart)
+data(iris)
+```
+
+```{r, eval=FALSE}
+library(XML)
+library(pmml)
+library(rpart)
+data(iris)
+
+my.rpart <- rpart(Species ~ ., data=iris)
+```
+```{r, include = FALSE}
+load(file = "ccc.RData")
+```
+```{r}
+my.rpart
+```
+**FULLY REP**
+
+```{r, results = 'hide'}
+pmml(my.rpart)
+```
+I assume that it is **FULLY REP**, altough the full output can't be seen in the original article.
+
+```{r}
+library(kernlab)
+audit <- read.csv(file("http://rattle.togaware.com/audit.csv"))
+```
+**FULLY REP**
+
+```{r}
+myksvm <- ksvm(as.factor(TARGET_Adjusted) ~ ., data=audit[,c(2:10,13)], kernel = "rbfdot", prob.model=TRUE)
+```
+**HAD TO CHANGE STH**
+Column `TARGET_Adjusted` was originally called `Adjusted`.
+
+```{r, results = 'hide'}
+pmml(myksvm, data=audit)
+```
+I assume that it is **FULLY REP**, altough the full output can't be seen in the original article.
+
+# neuralnet: Training of Neural Networks
+
+`neuralnet` is a package coming from [December 2009 R Journal issue](https://journal.r-project.org/archive/2010/RJ-2010-006/index.html). It introduces a package for neural networks in R. Last update comes from 2nd February 2019.
+
+```{r, message=FALSE, results = 'hide'}
+library(neuralnet)
+
+nn <- neuralnet(
+    case~age+parity+induced+spontaneous,
+    data=infert, hidden=2, err.fct="ce",
+    linear.output=FALSE)
+nn
+```
+**MOSTLY REP**
+It's impossible to get the same output, because the way of displaying this object is somewhat different.
+
+```{r}
+nn$result.matrix
+```
+**MOSTLY REP**
+Results may be randomly generated. What is more, rounding and displaying is different.
+
+```{r}
+out <- cbind(nn$covariate, nn$net.result[[1]])
+dimnames(out) <- list(NULL, c("age","parity","induced", "spontaneous","nn-output"))
+head(out)
+```
+**MOSTLY REP**
+Results may be randomly generated. What is more, rounding and displaying is different.
+
+```{r, results = 'hide'}
+nn.bp <- neuralnet(
+    case~age+parity+induced+spontaneous,
+    data=infert, hidden=2, err.fct="ce",
+    linear.output=FALSE,
+    algorithm="backprop",
+    learningrate=0.01)
+nn.bp
+```
+**MOSTLY REP**
+It's impossible to get the same output, because the way of displaying this object is somewhat different.
+
+```{r}
+head(nn$generalized.weights[[1]])
+```
+**MOSTLY REP**
+Results may be randomly generated, so there may be differences.
+
+```{r, fig.keep='all'}
+plot(nn)
+```
+![](networkplot.png)
+**MOSTLY REP**
+Results may be randomly generated, which can result in differences. Results can't be displayed by Markdown, but in basic R it works just fine.
+
+```{r}
+par(mfrow=c(2,2))
+gwplot(nn,selected.covariate="age",
+         min=-2.5, max=5)
+gwplot(nn,selected.covariate="parity",
+         min=-2.5, max=5)
+gwplot(nn,selected.covariate="induced",
+         min=-2.5, max=5)
+gwplot(nn,selected.covariate="spontaneous",
+         min=-2.5, max=5)
+```
+**MOSTLY REP**
+Results almost look the same, altough some values can be seen to be significantly different.
+
+```{r}
+new.output <- compute(nn,
+                      covariate=matrix(c(22,1,0,0,
+                                         22,1,1,0,
+                                         22,1,0,1,
+                                         22,1,1,1),
+                                       byrow=TRUE, ncol=4))
+new.output$net.result
+```
+**MOSTLY REP**
+Results may be randomly generated, so there may be differences.
+
+```{r, eval=FALSE}
+ci <- confidence.interval(nn.new, alpha=0.05)
+ci$lower.ci
+```
+**NO REP**
+Authors gave us code to use on described `nn.new`, but didn't do the same with how to create this object, so this chunk is not reproducible.
+
+# [mvtnorm](https://rjournal.github.io/archive/2009/RJ-2009-001/RJ-2009-001.pdf): New Numerical Algorithm for Multivariate Normal Probabilities
+
+```{r}
+library("mvtnorm")
+m <- 3
+S <- diag(m)
+S[2, 1] <- 1 / 4
+S[1, 2] <- 1 / 4
+S[3, 1] <- 1 / 5
+S[1, 3] <- 1 / 5
+S[3, 2] <- 1 / 3
+S[2, 3] <- 1 / 3
+S <- as.matrix(S)
+
+pmvnorm(lower = -c(1,4,2), upper = c(1,4,2), 
+        mean=rep(0, m), sigma = S, algorithm = Miwa())
+
+```
+
+**HAD TO CHANGE STH**, authors probably made mistake here. The matrix was not created in a proper way.
+After index fixing there was no problem with reproducing the output.
+
+# [tmvtnorm](https://rjournal.github.io/archive/2010/RJ-2010-005/RJ-2010-005.pdf): A Package for the TruncatedMultivariate Normal Distribution
+
+```{r}
+library(tmvtnorm)
+mu <- c(0.5, 0.5)
+sigma <- matrix(c(1, 0.8, 0.8, 2), 2, 2)
+a <- c(-1, -Inf)
+b <- c(0.5, 4)
+```
+
+**FULLY REP**
+
+```{r}
+X <- rtmvnorm(n=10000, mean=mu, sigma=sigma, lower=a, upper=b, algorithm="rejection")
+plot(X)
+```
+
+**FULLY REP**
+
+```{r}
+alpha <- pmvnorm(lower=a, upper=b, mean=mu, sigma=sigma)
+```
+
+**FULLY REP**
+
+```{r}
+X <- rtmvnorm(n=10000, mean=mu, sigma=sigma, lower=a, upper=b, algorithm="gibbs")
+plot(X)
+```
+
+**FULLY REP**
+
+```{r}
+X2 <- rtmvnorm(n=10000, mean=mu, sigma=sigma, lower=a, upper=b, algorithm="gibbs", burn.in.samples=100, thinning = 5)
+plot(X2)
+```
+
+**FULLY REP**
+
+```{r}
+x  <- seq(-1, 0.5, by=0.1)
+fx <- dtmvnorm(x, mu, sigma, lower=a, upper=b, margin=1)
+plot(fx)
+```
+
+**FULLY REP**
+
+# Party on! - A New, Conditional Variable-Importance Measure for Random Forests Available in the party Package
+
+`party` is a package coming from [December 2009 R Journal issue](https://journal.r-project.org/archive/2009/RJ-2009-013/index.html). It introduces a new method of partitioning in random forest based machine learning algorithms. Last update comes from 5th March 2020.
+
+```{r, message=FALSE}
+library(party)
+
+set.seed(42)
+readingSkills.cf <- cforest(score ~ ., data = readingSkills, control = cforest_unbiased(mtry = 2, ntree = 50))
+set.seed(42)
+varimp(readingSkills.cf)
+```
+**MOSTLY REP**
+
+```{r}
+set.seed(42)
+varimp(readingSkills.cf, conditional = TRUE)
+```
+**MOSTLY REP**
+
+# deSolve
+
+`deSolve` and other `-Solve` packages (+ `ReacTran`) are packages coming from [December 2010 R Journal issue](https://rjournal.github.io/archive/2010/RJ-2010-013/RJ-2010-013.pdf). They introduces methods of solving differential equations in R.
+
+```{r}
+vdpol <- function (t, y, mu) {list(c(y[2],mu * (1 - y[1]^2) * y[2] - y[1]))}
+
+library(deSolve)
+
+yini <- c(y1 = 2, y2 = 0)
+stiff <- ode(y = yini, func = vdpol,times = 0:3000, parms = 1000)
+nonstiff <- ode(y = yini, func = vdpol,times = seq(0, 30, by = 0.01),parms = 1)
+head(stiff, n = 3)
+```
+
+**FULLY REP**
+
+```{r}
+plot(stiff, type = "l", which = "y1",lwd = 2, ylab = "y",main = "IVP ODE, stiff")
+```
+
+**FULLY REP**
+
+```{r}
+plot(nonstiff, type = "l", which = "y1",lwd = 2, ylab = "y",main = "IVP ODE, nonstiff")
+```
+
+**FULLY REP**
+
+# bvpSolve
+
+```{r, error=T}
+Prob14 <- function(x, y, xi)  {list(c(y[2],1/xi * (y[1] - (xi*pi*pi+1) * cos(pi*x))))}
+
+library(bvpSolve)
+x <- seq(-1, 1, by = 0.01)
+shoot <- bvpshoot(yini = c(0, NA),yend = c(0, NA), x = x, parms = 0.01,func = Prob14)
+twp <- bvptwp(yini = c(0, NA), yend = c(0,NA), x = x, parms = 0.0025,func = Prob14)
+coll <- bvpcol(yini = c(0, NA),yend = c(0, NA), x = x, parms = 1e-04,func = Prob14)
+```
+
+**NO REP**, package bvpSolve cannot be installed.
+
+
+```{r}
+daefun<-function(t, y, dy, parms) {
+  res1 <- - dy[1] - 0.04 * y[1] +1e4 * y[2] * y[3]
+  res2 <- - dy[2] + 0.04 * y[1] -1e4 * y[2] * y[3] - 3e7 * y[2]^2
+  res3 <- y[1] + y[2] + y[3] - 1
+  list(c(res1, res2, res3),
+       error = as.vector(y[1] + y[2] + y[3]) - 1)}
+yini  <- c(y1 = 1, y2 = 0, y3 = 0)
+dyini <- c(-0.04, 0.04, 0)
+times <- 10 ^ seq(-6,6,0.1)
+
+print(system.time(out <-daspk(y = yini,
+                              dy = dyini,
+                              times = times, res = daefun,
+                              parms = NULL)))
+```
+
+**FULLY REP**, time of reprodution is of course shorter.
+
+```{r}
+plot(out, ylab = "conc.", xlab = "time",type = "l", lwd = 2, log = "x")
+mtext("IVP DAE", side = 3, outer = TRUE,line = -1)
+```
+
+**MOSTLY REP**, the error plot is different, but the tendency is the same.
+
+# ReacTran
+
+```{r}
+library(ReacTran)
+Grid <- setup.grid.1D(N = 1000, L = 10)
+
+pde1D <-function(t, C, parms)  {
+  tran <- tran.1D(C = C, D = D,C.down = Cext, dx = Grid)$dC
+  list(tran - Q) }
+
+D   <- 1  
+Q   <- 1  
+Cext <- 20
+```
+
+**FULLY REP**, no errors while loading.
+
+# RootSolve
+
+```{r}
+library(rootSolve)
+print(system.time(std <- steady.1D(y = runif(Grid$N), func = pde1D, parms = NULL, nspec = 1)))
+```
+
+**FULLY REP**, produced in no time.
+
+```{r}
+plot (Grid$x.mid, std$y, type = "l",lwd = 2, main = "steady-state PDE", xlab = "x", ylab = "C", col = "red")
+```
+
+**FULLY REP**
+
+```{r}
+analytical <- Q/2/D*(Grid$x.mid^2 - 10^2) + Cext
+max(abs(analytical - std$y))
+```
+
+**FULLY REP**
+
+```{r}
+require(deSolve)
+times <- seq(0, 100, by = 1)
+system.time(out <- ode.1D(y = rep(1, Grid$N),times = times, func = pde1D,parms = NULL, nspec = 1))
+```
+
+**FULLY REP**, it was of course reproduced faster.
+
+```{r}
+tail(out[, 1:4], n = 3)
+```
+
+**FULLY REP**
+
+```{r}
+image(out, xlab = "time, days",ylab = "Distance, cm",main = "PDE", add.contour = TRUE)
+```
+
+**MOSTLY REP**, colours a little bit brighter and more intensive.
+
 
 # Conclusions:
 
