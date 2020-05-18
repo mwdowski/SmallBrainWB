@@ -46,7 +46,7 @@ twp <- bvptwp(yini = c(0, NA), yend = c(0,NA), x = x, parms = 0.0025,func = Prob
 coll <- bvpcol(yini = c(0, NA),yend = c(0, NA), x = x, parms = 1e-04,func = Prob14)
 ```
 
-NOT REP, package bvpSolve cannot be installed.
+NO REP, package bvpSolve cannot be installed.
 
 # Benchmark
 
