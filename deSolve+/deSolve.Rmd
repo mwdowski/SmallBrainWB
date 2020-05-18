@@ -1,0 +1,136 @@
+---
+title: "Differential eqution solving"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Package deSolve
+
+```{r}
+vdpol <- function (t, y, mu) {list(c(y[2],mu * (1 - y[1]^2) * y[2] - y[1]))}
+
+library(deSolve)
+
+yini <- c(y1 = 2, y2 = 0)
+stiff <- ode(y = yini, func = vdpol,times = 0:3000, parms = 1000)
+nonstiff <- ode(y = yini, func = vdpol,times = seq(0, 30, by = 0.01),parms = 1)
+head(stiff, n = 3)
+```
+
+FULLY REP
+
+```{r}
+plot(stiff, type = "l", which = "y1",lwd = 2, ylab = "y",main = "IVP ODE, stiff")
+```
+
+FULLY REP
+
+```{r}
+plot(nonstiff, type = "l", which = "y1",lwd = 2, ylab = "y",main = "IVP ODE, nonstiff")
+```
+
+FULLY REP
+
+# bvpSolve
+
+```{r, error=T}
+Prob14 <- function(x, y, xi)  {list(c(y[2],1/xi * (y[1] - (xi*pi*pi+1) * cos(pi*x))))}
+
+library(bvpSolve)
+x <- seq(-1, 1, by = 0.01)
+shoot <- bvpshoot(yini = c(0, NA),yend = c(0, NA), x = x, parms = 0.01,func = Prob14)
+twp <- bvptwp(yini = c(0, NA), yend = c(0,NA), x = x, parms = 0.0025,func = Prob14)
+coll <- bvpcol(yini = c(0, NA),yend = c(0, NA), x = x, parms = 1e-04,func = Prob14)
+```
+
+NOT REP, package bvpSolve cannot be installed.
+
+# Benchmark
+
+```{r}
+daefun<-function(t, y, dy, parms) {
+  res1 <- - dy[1] - 0.04 * y[1] +1e4 * y[2] * y[3]
+  res2 <- - dy[2] + 0.04 * y[1] -1e4 * y[2] * y[3] - 3e7 * y[2]^2
+  res3 <- y[1] + y[2] + y[3] - 1
+  list(c(res1, res2, res3),
+       error = as.vector(y[1] + y[2] + y[3]) - 1)}
+yini  <- c(y1 = 1, y2 = 0, y3 = 0)
+dyini <- c(-0.04, 0.04, 0)
+times <- 10 ^ seq(-6,6,0.1)
+
+print(system.time(out <-daspk(y = yini,
+                              dy = dyini,
+                              times = times, res = daefun,
+                              parms = NULL)))
+```
+
+FULLY REP, time of reprodution is of course shorter.
+
+```{r}
+plot(out, ylab = "conc.", xlab = "time",type = "l", lwd = 2, log = "x")
+mtext("IVP DAE", side = 3, outer = TRUE,line = -1)
+```
+
+MOSTLY REP, the error plot is different, but the tendency is the same.
+
+# ReacTran
+
+```{r}
+library(ReacTran)
+Grid <- setup.grid.1D(N = 1000, L = 10)
+
+pde1D <-function(t, C, parms)  {
+  tran <- tran.1D(C = C, D = D,C.down = Cext, dx = Grid)$dC
+  list(tran - Q) }
+
+D   <- 1  
+Q   <- 1  
+Cext <- 20
+```
+
+FULLY REP, no errors while loading.
+
+# RootSolve
+
+```{r}
+library(rootSolve)
+print(system.time(std <- steady.1D(y = runif(Grid$N), func = pde1D, parms = NULL, nspec = 1)))
+```
+
+FULLY REP, produced in no time.
+
+```{r}
+plot (Grid$x.mid, std$y, type = "l",lwd = 2, main = "steady-state PDE", xlab = "x", ylab = "C", col = "red")
+```
+
+FULLY REP
+
+```{r}
+analytical <- Q/2/D*(Grid$x.mid^2 - 10^2) + Cext
+max(abs(analytical - std$y))
+```
+
+FULLY REP
+
+```{r}
+require(deSolve)
+times <- seq(0, 100, by = 1)
+system.time(out <- ode.1D(y = rep(1, Grid$N),times = times, func = pde1D,parms = NULL, nspec = 1))
+```
+
+FULLY REP, it was of course reproduced faster.
+
+```{r}
+tail(out[, 1:4], n = 3)
+```
+
+FULLY REP
+
+```{r}
+image(out, xlab = "time, days",ylab = "Distance, cm",main = "PDE", add.contour = TRUE)
+```
+
+MOSTLY REP, colours a little bit brighter and more intensive.
