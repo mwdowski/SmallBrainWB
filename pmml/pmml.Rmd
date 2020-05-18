@@ -1,0 +1,69 @@
+---
+title: "pmml"
+author: "Michał Wdowski"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  lines <- options$output.lines
+  if (is.null(lines)) {
+    return(hook_output(x, options))  # pass to default hook
+  }
+  x <- unlist(strsplit(x, "\n"))
+  more <- "..."
+  if (length(lines)==1) {        # first n lines
+    if (length(x) > lines) {
+      # truncate the output, but add ....
+      x <- c(head(x, lines), more)
+    }
+  } else {
+    x <- c(more, x[lines], more)
+  }
+  # paste these lines together
+  x <- paste(c(x, ""), collapse = "\n")
+  hook_output(x, options)
+})
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+#pmml
+
+`pmml` is a package coming from [June 2009 R Journal issue](https://journal.r-project.org/archive/2009/RJ-2009-010/). It introduces an XML-based syntax for predictive models. Last update comes from 22nd April 2020.
+
+```{r}
+library(pmml)
+library(rpart)
+data(iris)
+
+my.rpart <- rpart(Species ~ ., data=iris)
+my.rpart
+```
+**FULLY REP**
+
+```{r, output.lines=10}
+pmml(my.rpart)
+```
+I assume that it is **FULLY REP**, altough the full output can't be seen in the original article.
+
+```{r}
+library(kernlab)
+audit <- read.csv(file("http://rattle.togaware.com/audit.csv"))
+```
+I assume that it is **FULLY REP**, altough the full output can't be seen in the original article.
+
+```{r}
+pmml(my.rpart)
+myksvm <- ksvm(as.factor(TARGET_Adjusted) ~ ., data=audit[,c(2:10,13)], kernel = "rbfdot", prob.model=TRUE)
+```
+**HAD TO CHANGE STH**
+Column `TARGET_Adjusted` was originally called `Adjusted`.
+
+```{r, output.lines=10}
+pmml(myksvm, data=audit)
+```
+I assume that it is **FULLY REP**, altough the full output can't be seen in the original article.
+
+
