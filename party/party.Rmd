@@ -1,0 +1,53 @@
+---
+title: "party"
+author: "Michał Wdowski"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  lines <- options$output.lines
+  if (is.null(lines)) {
+    return(hook_output(x, options))  # pass to default hook
+  }
+  x <- unlist(strsplit(x, "\n"))
+  more <- "..."
+  if (length(lines)==1) {        # first n lines
+    if (length(x) > lines) {
+      # truncate the output, but add ....
+      x <- c(head(x, lines), more)
+    }
+  } else {
+    x <- c(more, x[lines], more)
+  }
+  # paste these lines together
+  x <- paste(c(x, ""), collapse = "\n")
+  hook_output(x, options)
+})
+
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+# party
+
+`party` is a package coming from [December 2009 R Journal issue](https://journal.r-project.org/archive/2009/RJ-2009-013/index.html). It introduces a new method of partitioning in random forest based machine learning algorithms. Last update comes from 5th March 2020.
+
+```{r, message=FALSE}
+library(party)
+
+set.seed(42)
+readingSkills.cf <- cforest(score ~ ., data = readingSkills, control = cforest_unbiased(mtry = 2, ntree = 50))
+set.seed(42)
+varimp(readingSkills.cf)
+```
+**MOSTLY REP**
+
+```{r}
+set.seed(42)
+varimp(readingSkills.cf, conditional = TRUE)
+```
+**MOSTLY REP**
+
+
