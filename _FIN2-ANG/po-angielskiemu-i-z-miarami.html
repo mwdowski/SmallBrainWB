@@ -4079,7 +4079,7 @@ varimp(readingSkills.cf, conditional = TRUE)</code></pre>
 </div>
 <div id="desolve" class="section level1">
 <h1><span class="header-section-number">14</span> deSolve</h1>
-<p><code>deSolve</code> and other <code>-Solve</code> packages (+ <code>ReacTran</code>) are packages coming from <a href="https://rjournal.github.io/archive/2010/RJ-2010-013/RJ-2010-013.pdf">December 2010 R Journal issue</a>. They introduces methods of solving differential equations in R.</p>
+<p><code>deSolve</code> and other <code>-Solve</code> packages (+ <code>ReacTran</code>) are packages coming from <a href="https://rjournal.github.io/archive/2010/RJ-2010-013/RJ-2010-013.pdf">December 2010 R Journal issue</a>. They introduce methods of solving differential equations in R.</p>
 <pre class="r"><code>vdpol &lt;- function (t, y, mu) {list(c(y[2],mu * (1 - y[1]^2) * y[2] - y[1]))}
 
 library(deSolve)

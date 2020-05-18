@@ -1310,7 +1310,7 @@ varimp(readingSkills.cf, conditional = TRUE)
 
 # deSolve
 
-`deSolve` and other `-Solve` packages (+ `ReacTran`) are packages coming from [December 2010 R Journal issue](https://rjournal.github.io/archive/2010/RJ-2010-013/RJ-2010-013.pdf). They introduces methods of solving differential equations in R.
+`deSolve` and other `-Solve` packages (+ `ReacTran`) are packages coming from [December 2010 R Journal issue](https://rjournal.github.io/archive/2010/RJ-2010-013/RJ-2010-013.pdf). They introduce methods of solving differential equations in R.
 
 ```{r}
 vdpol <- function (t, y, mu) {list(c(y[2],mu * (1 - y[1]^2) * y[2] - y[1]))}
