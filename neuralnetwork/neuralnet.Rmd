@@ -32,7 +32,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # neuralnet
 
-`party` is a package coming from [December 2009 R Journal issue](https://journal.r-project.org/archive/2010/RJ-2010-006/index.html). It introduces a package for neural networks in R. Last update comes from 2nd February 2019.
+`neuralnet` is a package coming from [December 2009 R Journal issue](https://journal.r-project.org/archive/2010/RJ-2010-006/index.html). It introduces a package for neural networks in R. Last update comes from 2nd February 2019.
 
 ```{r, message=FALSE, output.lines=12}
 library(neuralnet)
