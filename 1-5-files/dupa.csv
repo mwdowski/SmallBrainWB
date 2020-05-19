@@ -10,7 +10,7 @@ PMML;0;1;0;0;3;4
 neuralnet;1;0;8;0;0;9
 mvtnorm;0;1;0;0;0;1
 tmvtnorm;0;0;0;0;6;6
-party;0;0;2;0;;2
+party;0;0;2;0;0;2
 deSolve;0;0;0;0;3;3
 bvpSolve;1;0;1;0;1;3
 ReacTran;0;0;0;0;1;1
