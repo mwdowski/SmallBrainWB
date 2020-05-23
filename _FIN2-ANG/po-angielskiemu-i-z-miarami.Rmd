@@ -1438,10 +1438,15 @@ image(out, xlab = "time, days",ylab = "Distance, cm",main = "PDE", add.contour =
 **MOSTLY REP**, colours a little bit brighter and more intensive.
 
 
-# Conclusions:
+# Conclusions
 
 * There has been a change of seed, which hinders accurate reproduction;
 * Sometimes the datasets are no longer available;
 * There may have been name changes.
 
 Generally speaking, it is possible to reproduce with little effort and understanding of the code.
+
+# Session info
+```{r}
+sessionInfo()
+```
